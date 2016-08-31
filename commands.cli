@@ -1,0 +1,9 @@
+# Mark the commands below to be run as a batch
+batch
+
+# Add the datasource
+data-source add --jndi-name=java:/MySqlDS --name=MySqlDS \
+ --connection-url=jdbc:mysql://docker-mysql:3306/test --driver-name=mysql-connector-java-5.1.14.jar --user-name=root --password=root
+
+# Execute the batch
+run-batch
