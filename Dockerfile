@@ -19,11 +19,12 @@ ADD customization /opt/jboss/wildfly/customization/
 #ADD standalone-full.xml /opt/jboss/wildfly/standalone/configuration/
 
 RUN /opt/jboss/wildfly/bin/add-user.sh admin admin --silent
+
+RUN  chmod +x /opt/jboss/wildfly/customization/execute.sh
 RUN /opt/jboss/wildfly/customization/execute.sh
 
 RUN rm -rf /opt/jboss/wildfly/standalone/configuration/standalone_xml_history/current
 
-RUN  chmod +x /opt/jboss/wildfly/customization/execute.sh
 RUN  chmod +x /opt/jboss/wildfly/bin/standalone.sh
 
 # Set the default command to run on boot
