@@ -1,0 +1,2 @@
+# Run with <wildfly home>/bin/jboss-cli -c --file=<this file name>
+/subsystem=datasources/jdbc-driver=mysql:add(driver-module-name=com.mysql, driver-name=mysql, driver-xa-datasource-class-name=com.mysql.jdbc.Driver)

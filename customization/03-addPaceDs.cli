@@ -1,0 +1,2 @@
+# Run with <wildfly home>/bin/jboss-cli -c --file=<this file name>
+/subsystem=datasources/data-source=pace:add(jndi-name="java:/jdbc/pace", driver-name=mysql, connection-url="jdbc:mysql://mysql-pace-default.apps.10.2.2.2.xip.io/pace", user-name=pace, password=pace_123)

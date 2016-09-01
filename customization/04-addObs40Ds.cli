@@ -1,0 +1,2 @@
+# Run with <wildfly home>/bin/jboss-cli -c --file=<this file name>
+/subsystem=datasources/data-source=obs40:add(jndi-name="java:/jdbc/obs40", driver-name=mysql, connection-url="jdbc:mysql://mysql-obs40-default.apps.10.2.2.2.xip.io/obs40", user-name=pace, password=pace)

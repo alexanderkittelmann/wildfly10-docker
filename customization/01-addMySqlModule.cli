@@ -1,0 +1,2 @@
+# Run with <wildfly home>/bin/jboss-cli --file=<this file name>
+module add --name=com.mysql --resources=mysql-connector-java-5.1.22-bin.jar --dependencies=javax.api,javax.transaction.api
