@@ -1,6 +1,8 @@
 # Use latest jboss/base-jdk:7 image as the base
 FROM jboss/base-jdk:8
 
+USER root
+
 # Set the WILDFLY_VERSION env variable
 ENV WILDFLY_VERSION 10.0.0.Final
 
@@ -20,8 +22,8 @@ ADD customization /opt/jboss/wildfly/customization/
 
 RUN /opt/jboss/wildfly/bin/add-user.sh admin admin --silent
 
-#RUN chmod +x /opt/jboss/wildfly/customization/execute.sh
-#RUN /opt/jboss/wildfly/customization/execute.sh
+RUN chmod +x /opt/jboss/wildfly/customization/execute.sh
+RUN /opt/jboss/wildfly/customization/execute.sh
 
 RUN rm -rf /opt/jboss/wildfly/standalone/configuration/standalone_xml_history/current
 
