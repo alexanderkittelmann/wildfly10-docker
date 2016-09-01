@@ -1,8 +1,6 @@
 # Use latest jboss/base-jdk:7 image as the base
 FROM jboss/base-jdk:8
 
-USER root
-
 # Set the WILDFLY_VERSION env variable
 ENV WILDFLY_VERSION 10.0.0.Final
 
@@ -16,12 +14,12 @@ ENV JBOSS_HOME /opt/jboss/wildfly
 # Expose the ports we're interested in
 EXPOSE 8080 9990
 
-ADD mysql-connector-java-5.1.14.jar /opt/jboss/wildfly/standalone/deployments/
 ADD customization /opt/jboss/wildfly/customization/
 #ADD standalone-full.xml /opt/jboss/wildfly/standalone/configuration/
 
 RUN /opt/jboss/wildfly/bin/add-user.sh admin admin --silent
 
+USER root
 RUN chmod +x /opt/jboss/wildfly/customization/execute.sh
 RUN /opt/jboss/wildfly/customization/execute.sh
 
