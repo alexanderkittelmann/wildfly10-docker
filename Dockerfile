@@ -1,23 +1,11 @@
 # Use latest jboss/base-jdk:7 image as the base
-FROM jboss/base-jdk:8
+FROM mysql:latest
 
 # Set the WILDFLY_VERSION env variable
 ENV WILDFLY_VERSION 10.0.0.Final
 
 ENV MYSQL_ROOT_PASSWORD root
 ENV MYSQL_DATABASE test
-
-ENV PACKAGE_URL https://repo.mysql.com/yum/mysql-5.7-community/docker/x86_64/mysql-community-server-minimal-5.7.15-1.el7.x86_64.rpm
-
-# Install server
-RUN rpmkeys --import http://repo.mysql.com/RPM-GPG-KEY-mysql \
-  && yum install -y $PACKAGE_URL \
-  && yum install -y libpwquality \
-  && rm -rf /var/cache/yum/*
-
-VOLUME /var/lib/mysql
-
-EXPOSE 3306 33060
 
 # Add the WildFly distribution to /opt, and make wildfly the owner of the extracted tar content
 # Make sure the distribution is available from a well-known place
