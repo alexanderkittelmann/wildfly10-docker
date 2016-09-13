@@ -27,6 +27,8 @@ ADD customization /opt/jboss/wildfly/customization/
 ADD customization/mysql-connector-java-5.1.22-bin.jar /opt/jboss/mysql-connector-java-5.1.22-bin.jar
 #ADD standalone-full.xml /opt/jboss/wildfly/standalone/configuration/
 
+RUN cd /opt/jboss/wildfly && ls
+
 RUN /opt/jboss/wildfly/bin/add-user.sh admin admin --silent
 
 USER root
