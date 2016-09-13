@@ -14,8 +14,9 @@ RUN  apt-get update \
   && apt-get install -y wget
   
 RUN  apt-get update \
-  && apt-get install -y mysql-server
-  
+  && apt-get install -q -y mysql-server
+
+RUN mysqladmin -u root password root
 RUN mysql -uroot -e "create database test;"
 
 RUN  mkdir /usr/local/java \
