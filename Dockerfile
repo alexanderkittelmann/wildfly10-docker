@@ -18,7 +18,9 @@ RUN  apt-get update \
   && echo "mysql-server-5.6 mysql-server/root_password_again password root" | debconf-set-selections \
   && apt-get install -y mysql-server
 
-# RUN mysql -uroot -p root "create database test;"
+RUN service mysql start  
+  
+RUN mysql -uroot --password=root --execute="CREATE SCHEMA test2;"
 
 RUN  mkdir /usr/local/java \
   && cd /usr/local/java  \
@@ -49,7 +51,6 @@ RUN cd /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/customization/ && ls
 
 RUN /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/bin/add-user.sh admin admin --silent
 
-USER root
 RUN chmod +x /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/customization/execute.sh
 RUN /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/customization/execute.sh
 
