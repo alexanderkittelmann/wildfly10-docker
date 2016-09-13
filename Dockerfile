@@ -37,7 +37,7 @@ RUN cd $HOME && curl http://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-
 EXPOSE 8080 9990
 
 ADD customization /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/customization/
-ADD customization/mysql-connector-java-5.1.22-bin.jar /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/customization/mysql-connector-java-5.1.22-bin.jar
+ADD customization/mysql-connector-java-5.1.22-bin.jar /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/customization/
 #ADD standalone-full.xml /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/standalone/configuration/
 
 RUN /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/bin/add-user.sh admin admin --silent
