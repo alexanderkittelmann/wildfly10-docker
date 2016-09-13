@@ -1,10 +1,11 @@
 #!/bin/bash
 
-JBOSS_HOME=/opt/jboss/wildfly
+WILDFLY_VERSION=10.0.0.Final
+JBOSS_HOME=/opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/
 JBOSS_CLI=$JBOSS_HOME/bin/jboss-cli.sh
 JBOSS_MODE=${1:-"standalone"}
 JBOSS_CONFIG=${2:-"$JBOSS_MODE.xml"}
-CLI_FILE_DIRECTORY=$JBOSS_HOME/customization
+CLI_FILE_DIRECTORY=$JBOSS_HOME/wildfly-$WILDFLY_VERSION/customization
 
 function wait_for_server() {
   until `$JBOSS_CLI -c "ls /deployment" &> /dev/null`; do

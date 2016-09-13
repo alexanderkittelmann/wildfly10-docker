@@ -23,22 +23,20 @@ RUN cd $HOME && curl http://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-
 # Expose the ports we're interested in
 EXPOSE 8080 9990
 
-ADD customization /opt/jboss/wildfly/customization/
+ADD customization /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/customization/
 ADD customization/mysql-connector-java-5.1.22-bin.jar /opt/jboss/mysql-connector-java-5.1.22-bin.jar
-#ADD standalone-full.xml /opt/jboss/wildfly/standalone/configuration/
+#ADD standalone-full.xml /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/standalone/configuration/
 
-RUN cd /opt/jboss/wildfly && ls
-
-RUN /opt/jboss/wildfly/bin/add-user.sh admin admin --silent
+RUN /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/bin/add-user.sh admin admin --silent
 
 USER root
-RUN chmod +x /opt/jboss/wildfly/customization/execute.sh
-RUN /opt/jboss/wildfly/customization/execute.sh
+RUN chmod +x /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/customization/execute.sh
+RUN /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/customization/execute.sh
 
-RUN rm -rf /opt/jboss/wildfly/standalone/configuration/standalone_xml_history/current
+RUN rm -rf /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/standalone/configuration/standalone_xml_history/current
 
-RUN chmod +x /opt/jboss/wildfly/bin/standalone.sh
+RUN chmod +x /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/bin/standalone.sh
 
 # Set the default command to run on boot
 # This will boot WildFly in the standalone mode and bind to all interface
-CMD ["/opt/jboss/wildfly/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
+CMD ["/opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
