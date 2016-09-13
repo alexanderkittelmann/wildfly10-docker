@@ -21,7 +21,7 @@ EXPOSE 3306 33060
 
 # Add the WildFly distribution to /opt, and make wildfly the owner of the extracted tar content
 # Make sure the distribution is available from a well-known place
-RUN cd $HOME && curl http://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.tar.gz | tar zx && mv $HOME/wildfly-$WILDFLY_VERSION $HOME/wildfly
+RUN cd $HOME && curl http://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.tar.gz | tar zx && mv $HOME/wildfly-$WILDFLY_VERSION /opt/jboss/wildfly
 
 # Set the JBOSS_HOME env variable
 ENV JBOSS_HOME /opt/jboss/wildfly
@@ -29,14 +29,15 @@ ENV JBOSS_HOME /opt/jboss/wildfly
 # Expose the ports we're interested in
 EXPOSE 8080 9990
 
-ADD mysql-connector-java-5.1.14.jar /opt/jboss/wildfly/standalone/deployments/
 ADD customization /opt/jboss/wildfly/customization/
+ADD customization/mysql-connector-java-5.1.22-bin.jar /opt/jboss/mysql-connector-java-5.1.22-bin.jar
 #ADD standalone-full.xml /opt/jboss/wildfly/standalone/configuration/
 
 RUN /opt/jboss/wildfly/bin/add-user.sh admin admin --silent
 
-#RUN chmod +x /opt/jboss/wildfly/customization/execute.sh
-#RUN /opt/jboss/wildfly/customization/execute.sh
+USER root
+RUN chmod +x /opt/jboss/wildfly/customization/execute.sh
+RUN /opt/jboss/wildfly/customization/execute.sh
 
 RUN rm -rf /opt/jboss/wildfly/standalone/configuration/standalone_xml_history/current
 
