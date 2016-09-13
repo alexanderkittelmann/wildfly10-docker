@@ -18,9 +18,7 @@ RUN  apt-get update \
   && echo "mysql-server-5.6 mysql-server/root_password_again password root" | debconf-set-selections \
   && apt-get install -y mysql-server
 
-RUN service mysql start  
-  
-RUN mysql -uroot --password=root --execute="CREATE SCHEMA test2;"
+RUN service mysql start && mysql -uroot --password=root --execute="CREATE SCHEMA test2;"
 
 RUN  mkdir /usr/local/java \
   && cd /usr/local/java  \
