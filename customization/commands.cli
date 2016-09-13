@@ -2,14 +2,7 @@
 batch
 
 # Add the datasource
-data-source add --jndi-name=java:/MySqlDS1 --name=MySqlDS1 \
+data-source add --jndi-name=java:/jdbc/test2 --name=Test \
  --connection-url=jdbc:mysql://172.18.0.2:3306/test --driver-name=mysql-connector-java-5.1.14.jar --user-name=root --password=root
-data-source add --jndi-name=java:/MySqlDS2 --name=MySqlDS2 \
- --connection-url=jdbc:mysql://0.0.0.0:3306/test --driver-name=mysql-connector-java-5.1.14.jar --user-name=root --password=root
-data-source add --jndi-name=java:/MySqlDS3 --name=MySqlDS3 \
- --connection-url=jdbc:mysql://192.168.99.101:3306/test --driver-name=mysql-connector-java-5.1.14.jar --user-name=root --password=root
-data-source add --jndi-name=java:/MySqlDS4 --name=MySqlDS4 \
- --connection-url=jdbc:mysql://169.254.226.178:3306/test --driver-name=mysql-connector-java-5.1.14.jar --user-name=root --password=root
-
 # Execute the batch
 run-batch

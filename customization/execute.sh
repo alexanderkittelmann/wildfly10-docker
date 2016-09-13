@@ -20,11 +20,11 @@ echo "=> Waiting for the server to boot"
 wait_for_server
 
 echo "=> Executing the commands"
-#$JBOSS_CLI -c --file=$CLI_FILE_DIRECTORY/commands.cli
-$JBOSS_CLI -c --file=$CLI_FILE_DIRECTORY/01-addMySqlModule.cli
-$JBOSS_CLI -c --file=$CLI_FILE_DIRECTORY/02-addMySqlDriver.cli
-$JBOSS_CLI -c --file=$CLI_FILE_DIRECTORY/03-addPaceDs.cli
-$JBOSS_CLI -c --file=$CLI_FILE_DIRECTORY/04-addObs40Ds.cli
+$JBOSS_CLI -c --file=$CLI_FILE_DIRECTORY/commands.cli
+#$JBOSS_CLI -c --file=$CLI_FILE_DIRECTORY/01-addMySqlModule.cli
+#$JBOSS_CLI -c --file=$CLI_FILE_DIRECTORY/02-addMySqlDriver.cli
+#$JBOSS_CLI -c --file=$CLI_FILE_DIRECTORY/03-addPaceDs.cli
+#$JBOSS_CLI -c --file=$CLI_FILE_DIRECTORY/04-addObs40Ds.cli
 
 echo "=> Shutting down WildFly"
 if [ "$JBOSS_MODE" = "standalone" ]; then

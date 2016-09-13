@@ -3,50 +3,45 @@ FROM ubuntu:16.04
 
 USER root
 
-# Set the WILDFLY_VERSION env variable
+# Umgebungsbvariablen setzen
 ENV WILDFLY_VERSION 10.0.0.Final
 ENV JBOSS_HOME /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION
+ENV JAVA_HOME=/usr/local/java/jdk1.8.0_77
+ENV PATH=$PATH:/usr/local/java/jdk1.8.0_77/bin
 
+# Curl installieren
 RUN  apt-get update \
      && apt-get install -y curl
 
+# wget installieren
 RUN  apt-get update \
   && apt-get install -y wget
   
+# root-Passwort fuer MySQL-Server festlegen und MySQL-Server installieren
 RUN  apt-get update \
   && echo "mysql-server-5.6 mysql-server/root_password password root" | debconf-set-selections \
   && echo "mysql-server-5.6 mysql-server/root_password_again password root" | debconf-set-selections \
   && apt-get install -y mysql-server
 
+# MySQL-Server starten und Schema anlegen
 RUN service mysql start && mysql -uroot --password=root --execute="CREATE SCHEMA test2;"
 
+# Java installieren
 RUN  mkdir /usr/local/java \
   && cd /usr/local/java  \
   && wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" \
      http://download.oracle.com/otn-pub/java/jdk/8u77-b03/jdk-8u77-linux-x64.tar.gz \
   && tar -xvzf jdk-8u77-linux-x64.tar.gz \
   && rm jdk-8u77-linux-x64.tar.gz
-
-ENV JAVA_HOME=/usr/local/java/jdk1.8.0_77
-ENV PATH=$PATH:/usr/local/java/jdk1.8.0_77/bin
      
 RUN mkdir -p /opt/jboss/wildfly     
      
-# Add the WildFly distribution to /opt, and make wildfly the owner of the extracted tar content
-# Make sure the distribution is available from a well-known place
+# WildFly installieren
 RUN cd $HOME && curl http://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.tar.gz | tar zx && mv $HOME/wildfly-$WILDFLY_VERSION /opt/jboss/wildfly
 
-# Set the JBOSS_HOME env variable
-
-# Expose the ports we're interested in
-EXPOSE 8080 9990
-
+# WildFly konfigurieren
 ADD customization /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/customization/
-COPY customization/mysql-connector-java-5.1.22-bin.jar /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/customization/
 COPY customization/mysql-connector-java-5.1.22-bin.jar /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/standalone/deployments
-#ADD standalone-full.xml /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/standalone/configuration/
-
-RUN cd /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/customization/ && ls
 
 RUN /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/bin/add-user.sh admin admin --silent
 
@@ -56,6 +51,9 @@ RUN /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/customization/execute.sh
 RUN rm -rf /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/standalone/configuration/standalone_xml_history/current
 
 RUN chmod +x /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/bin/standalone.sh
+
+# Benötigte Ports von aussen zugaenglich machen
+EXPOSE 8080 9990 3306
 
 # Set the default command to run on boot
 # This will boot WildFly in the standalone mode and bind to all interface
