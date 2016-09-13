@@ -15,7 +15,7 @@ RUN  apt-get update \
   
 RUN  apt-get update \
   && echo "mysql-server-5.6 mysql-server/root_password password root" | debconf-set-selections \
-  && echo "mysql-server-5.6 mysql-server/root_password_again password root" | debconf-set-selection \
+  && echo "mysql-server-5.6 mysql-server/root_password_again password root" | debconf-set-selections \
   && apt-get install -y mysql-server
 
 RUN mysql -uroot -p root "create database test;"
