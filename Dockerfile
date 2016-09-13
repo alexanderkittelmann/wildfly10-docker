@@ -3,7 +3,7 @@ FROM mysql:latest
 
 # Set the WILDFLY_VERSION env variable
 ENV WILDFLY_VERSION 10.0.0.Final
-ENV JBOSS_HOME /opt/jboss/wildfly
+ENV JBOSS_HOME /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION
 
 ENV MYSQL_ROOT_PASSWORD root
 ENV MYSQL_DATABASE test
