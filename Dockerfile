@@ -12,7 +12,7 @@ RUN  apt-get update \
      && apt-get install -y curl
 
      
-RUN mkdir /opt/jboss/wildfly     
+RUN mkdir -p /opt/jboss/wildfly     
      
 # Add the WildFly distribution to /opt, and make wildfly the owner of the extracted tar content
 # Make sure the distribution is available from a well-known place
