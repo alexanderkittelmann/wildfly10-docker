@@ -1,19 +1,22 @@
 # Use latest jboss/base-jdk:7 image as the base
-FROM mysql:latest
+FROM ubuntu:16.04
+
+USER root
 
 # Set the WILDFLY_VERSION env variable
 ENV WILDFLY_VERSION 10.0.0.Final
 ENV JBOSS_HOME /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION
 
-ENV MYSQL_ROOT_PASSWORD root
-ENV MYSQL_DATABASE test
-
 RUN  apt-get update \
      && apt-get install -y curl
 
 RUN  apt-get update \
-  && apt-get install -y wget \
-  && rm -rf /var/lib/apt/lists/*
+  && apt-get install -y wget
+  
+RUN  apt-get update \
+  && apt-get install -y mysql-server
+  
+RUN mysql -uroot -e "create database test;"
 
 RUN  mkdir /usr/local/java \
   && cd /usr/local/java  \
