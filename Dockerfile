@@ -43,6 +43,7 @@ EXPOSE 8080 9990
 
 ADD customization /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/customization/
 COPY customization/mysql-connector-java-5.1.22-bin.jar /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/customization/
+COPY customization/mysql-connector-java-5.1.22-bin.jar /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/standalone/deployments
 #ADD standalone-full.xml /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/standalone/configuration/
 
 RUN cd /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/customization/ && ls
