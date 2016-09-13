@@ -11,6 +11,19 @@ ENV MYSQL_DATABASE test
 RUN  apt-get update \
      && apt-get install -y curl
 
+RUN  apt-get update \
+  && apt-get install -y wget \
+  && rm -rf /var/lib/apt/lists/*
+
+RUN  mkdir /usr/local/java \
+  && cd /usr/local/java  \
+  && wget --no-check-certificate --no-cookies --header "Cookie: oraclelicense=accept-securebackup-cookie" \
+     http://download.oracle.com/otn-pub/java/jdk/8u77-b03/jdk-8u77-linux-x64.tar.gz \
+  && tar -xvzf jdk-8u77-linux-x64.tar.gz \
+  && rm jdk-8u77-linux-x64.tar.gz
+
+ENV JAVA_HOME=/usr/local/java/jdk1.8.0_77
+ENV PATH=$PATH:/usr/local/java/jdk1.8.0_77/bin
      
 RUN mkdir -p /opt/jboss/wildfly     
      
