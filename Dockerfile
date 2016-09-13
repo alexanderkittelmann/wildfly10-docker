@@ -3,6 +3,7 @@ FROM mysql:latest
 
 # Set the WILDFLY_VERSION env variable
 ENV WILDFLY_VERSION 10.0.0.Final
+ENV JBOSS_HOME /opt/jboss/wildfly
 
 ENV MYSQL_ROOT_PASSWORD root
 ENV MYSQL_DATABASE test
@@ -10,12 +11,14 @@ ENV MYSQL_DATABASE test
 RUN  apt-get update \
      && apt-get install -y curl
 
+     
+RUN sudo mkdir /opt/jboss/wildfly     
+     
 # Add the WildFly distribution to /opt, and make wildfly the owner of the extracted tar content
 # Make sure the distribution is available from a well-known place
 RUN cd $HOME && curl http://download.jboss.org/wildfly/$WILDFLY_VERSION/wildfly-$WILDFLY_VERSION.tar.gz | tar zx && mv $HOME/wildfly-$WILDFLY_VERSION /opt/jboss/wildfly
 
 # Set the JBOSS_HOME env variable
-ENV JBOSS_HOME /opt/jboss/wildfly
 
 # Expose the ports we're interested in
 EXPOSE 8080 9990
