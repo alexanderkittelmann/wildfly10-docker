@@ -17,6 +17,9 @@ ENV JBOSS_HOME /opt/jboss/wildfly
 # Expose the ports we're interested in
 EXPOSE 8080 9990
 
+RUN  apt-get update \
+     && apt-get install -y curl
+
 ADD customization /opt/jboss/wildfly/customization/
 ADD customization/mysql-connector-java-5.1.22-bin.jar /opt/jboss/mysql-connector-java-5.1.22-bin.jar
 #ADD standalone-full.xml /opt/jboss/wildfly/standalone/configuration/
