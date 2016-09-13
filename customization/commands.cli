@@ -3,6 +3,6 @@ batch
 
 # Add the datasource
 data-source add --jndi-name=java:/jdbc/test2 --name=Test \
- --connection-url=jdbc:mysql://172.18.0.2:3306/test --driver-name=mysql-connector-java-5.1.14.jar --user-name=root --password=root
+ --connection-url=jdbc:mysql://172.18.0.2:3306/test --driver-name=mysql-connector-java-5.1.22-bin.jar --user-name=root --password=root
 # Execute the batch
 run-batch
