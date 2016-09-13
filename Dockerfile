@@ -14,10 +14,11 @@ RUN  apt-get update \
   && apt-get install -y wget
   
 RUN  apt-get update \
-  && sudo -E apt-get install -q -y mysql-server
+  && echo "mysql-server-5.6 mysql-server/root_password password root" | sudo debconf-set-selections
+  && echo "mysql-server-5.6 mysql-server/root_password_again password root" | sudo debconf-set-selection
+  && sapt-get install -y mysql-server
 
-RUN mysqladmin -u root password root
-RUN mysql -uroot -e "create database test;"
+RUN mysql -uroot -p root "create database test;"
 
 RUN  mkdir /usr/local/java \
   && cd /usr/local/java  \
