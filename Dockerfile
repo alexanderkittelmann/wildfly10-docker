@@ -14,7 +14,7 @@ RUN  apt-get update \
   && apt-get install -y wget
   
 RUN  apt-get update \
-  && apt-get install -q -y mysql-server
+  && sudo -E apt-get install -q -y mysql-server
 
 RUN mysqladmin -u root password root
 RUN mysql -uroot -e "create database test;"
