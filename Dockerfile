@@ -52,4 +52,4 @@ RUN chmod +x /opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/bin/standalone.sh
 
 # Set the default command to run on boot
 # This will boot WildFly in the standalone mode and bind to all interface
-CMD ["/opt/jboss/wildfly/wildfly-$WILDFLY_VERSION/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
+CMD ["/opt/jboss/wildfly/wildfly-10.0.0.Final/bin/standalone.sh", "-b", "0.0.0.0", "-bmanagement", "0.0.0.0"]
